@@ -1,0 +1,12 @@
+.venv/
+.venv-local/
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+.n8n/
+n8n_data/
+*-receipt.json
+ziyad_scan.json
+*.zip

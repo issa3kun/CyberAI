@@ -1,0 +1,39 @@
+{
+  "checks": {
+    "hostname_present": true,
+    "https_in_submitted_url": true,
+    "live_response": {
+      "cookies": [],
+      "cookies_detected": false,
+      "http_status_code": 301,
+      "redirect_detected": true,
+      "redirect_status_code": 301,
+      "redirect_target_scheme": "https",
+      "request_completed": true,
+      "security_headers": {
+        "content_security_policy": false,
+        "frame_protection": false,
+        "strict_transport_security": false,
+        "x_content_type_options": false
+      },
+      "server_header_present": false,
+      "tls_connection_verified": true
+    }
+  },
+  "findings": [
+    {"category": "URL Information", "evidence": "Hostname identified: footyroom.com", "id": "hostname_detected", "severity": "info"},
+    {"category": "HTTP Security", "evidence": "Content-Security-Policy header was not detected.", "id": "missing_csp", "limitation": "A missing CSP header does not prove that the website is vulnerable.", "severity": "low"},
+    {"category": "HTTP Security", "evidence": "X-Content-Type-Options is missing or is not configured as 'nosniff'.", "id": "weak_x_content_type_options", "severity": "low"},
+    {"category": "Transport Security", "evidence": "HSTS is missing or does not specify a positive max-age value.", "id": "missing_or_weak_hsts", "severity": "low"},
+    {"category": "HTTP Security", "evidence": "Neither a recognised X-Frame-Options value nor a restrictive CSP frame-ancestors directive was detected.", "id": "missing_frame_protection", "severity": "low"},
+    {"category": "URL Behaviour", "evidence": "The server returned a redirect. The scanner did not follow its destination.", "id": "redirect_detected", "severity": "info"}
+  ],
+  "preliminary_assessment": {
+    "reason": "One or more low-severity security issues were detected. Use website with normal browser security precautions.",
+    "risk_level": "Low"
+  },
+  "scan_type": "Surface-level checks",
+  "status": "URL validated",
+  "success": true,
+  "url": "https://footyroom.com"
+}

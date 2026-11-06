@@ -1,0 +1,24 @@
+{
+  "url": "https://example.com/",
+  "checks": {
+    "https_in_submitted_url": true,
+    "hostname_present": true,
+    "http_response_received": false,
+    "http_status_code": null
+  },
+  "findings": [
+    {
+      "id": "hostname_detected",
+      "category": "URL Information",
+      "severity": "info",
+      "evidence": "Hostname identified: example.com"
+    },
+    {
+      "id": "http_request_failed",
+      "category": "HTTP Inspection",
+      "severity": "info",
+      "evidence": "The scanner could not obtain an HTTP response.",
+      "limitation": "The site may be unavailable, slow, or blocking the request. No conclusion about its vulnerabilities can be drawn."
+    }
+  ]
+}

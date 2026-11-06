@@ -1,0 +1,31 @@
+{
+  "url": "https://fixture.invalid/",
+  "success": true,
+  "checks": {
+    "https_in_submitted_url": true,
+    "live_response": {
+      "request_completed": true,
+      "http_status_code": 200,
+      "tls_connection_verified": true,
+      "redirect_detected": false,
+      "cookies_detected": false,
+      "cookies": [],
+      "security_headers": {
+        "content_security_policy": true,
+        "x_content_type_options": true,
+        "strict_transport_security": true,
+        "frame_protection": true
+      }
+    }
+  },
+  "findings": [
+    {
+      "id": "missing_csp",
+      "evidence": "Synthetic contradictory finding: CSP reported missing although its check is true."
+    }
+  ],
+  "preliminary_assessment": {
+    "risk_level": "Low",
+    "reason": "Synthetic scanner summary."
+  }
+}

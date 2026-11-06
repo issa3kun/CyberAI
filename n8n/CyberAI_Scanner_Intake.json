@@ -1,0 +1,44 @@
+{
+  "name": "CyberAI Scanner to RAE - Local Prototype",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST", "path": "cyberai-scanner-intake",
+        "responseMode": "responseNode", "options": {}
+      },
+      "type": "n8n-nodes-base.webhook", "typeVersion": 2.2,
+      "position": [0, 0], "id": "8cda08b9-d05c-4d5e-aa9a-57e603786dca",
+      "name": "Receive scanner result", "webhookId": "a679ade4-5297-49fc-b540-2791b64c0489"
+    },
+    {
+      "parameters": {
+        "method": "POST", "url": "http://host.docker.internal:5001/api/rae/assess",
+        "authentication": "genericCredentialType", "genericAuthType": "httpHeaderAuth",
+        "sendBody": true, "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.body) }}",
+        "options": {"timeout": 20000}
+      },
+      "type": "n8n-nodes-base.httpRequest", "typeVersion": 4.2,
+      "position": [256, 0], "id": "ed58e030-f13d-4a81-b2f2-a082352409fb",
+      "name": "Assess scan with RAE"
+    },
+    {
+      "parameters": {
+        "respondWith": "json", "responseBody": "={{ JSON.stringify($json) }}", "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook", "typeVersion": 1.5,
+      "position": [512, 0], "id": "a4a19c1e-575f-4201-955a-359a26ae3f61",
+      "name": "Return RAE assessment"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Receive scanner result": {
+      "main": [[{"node": "Assess scan with RAE", "type": "main", "index": 0}]]
+    },
+    "Assess scan with RAE": {
+      "main": [[{"node": "Return RAE assessment", "type": "main", "index": 0}]]
+    }
+  },
+  "active": false, "settings": {"executionOrder": "v1"}, "tags": []
+}

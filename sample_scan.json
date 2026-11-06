@@ -1,0 +1,33 @@
+{
+  "url": "https://example.com/",
+  "checks": {
+    "https_in_submitted_url": true,
+    "hostname_present": true,
+    "http_response_received": true,
+    "http_status_code": 200,
+    "content_security_policy_present": false,
+    "x_content_type_options_present": true,
+    "referrer_policy_present": true,
+    "permissions_policy_present": true,
+    "hsts_present": true,
+    "framing_protection_present": true,
+    "cookies_observed": 0,
+    "cookies_missing_security_attributes": false
+  },
+  "findings": [
+    {
+      "id": "hostname_detected",
+      "category": "URL Information",
+      "severity": "info",
+      "evidence": "Hostname identified: example.com"
+    },
+    {
+      "id": "content_security_policy_missing",
+      "category": "HTTP Security Headers",
+      "severity": "info",
+      "evidence": "Content-Security-Policy was not present.",
+      "limitation": "A missing header alone does not prove that the website is exploitable.",
+      "recommendation": "Review whether an appropriate CSP should be configured."
+    }
+  ]
+}

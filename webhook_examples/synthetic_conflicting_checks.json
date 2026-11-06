@@ -1,0 +1,159 @@
+{
+  "event": "cyberai.rae.assessment_ready",
+  "contract_version": "cyberai.rae.webhook/0.2.0-draft",
+  "scan_id": null,
+  "input_origin": "synthetic_test_data",
+  "is_synthetic_test_data": true,
+  "report_preferences": {
+    "literacy_level": "unspecified",
+    "perspectives": [
+      "visitor",
+      "website_owner"
+    ]
+  },
+  "assessment": {
+    "engine_version": "0.2.0",
+    "assessment_contract": "draft_for_team_review",
+    "input_sha256": "4d9692da2e1b14e34cdc48de1c6337c8911ce9c52040aefe979173399da4df20",
+    "scan": {
+      "url": "https://fixture.invalid/",
+      "status": "inconsistent",
+      "scope": "submitted_url_and_initial_response_only",
+      "http_response_received": true,
+      "http_status_code": 200,
+      "tls_connection_verified": true,
+      "redirect_detected": false,
+      "redirect_target_scheme": null,
+      "destination_assessed": false,
+      "cookies_detected": false,
+      "cookies": [],
+      "security_headers": {
+        "content_security_policy": true,
+        "x_content_type_options": true,
+        "strict_transport_security": true,
+        "frame_protection": true
+      }
+    },
+    "findings": [
+      {
+        "finding_ref": "finding-0001",
+        "id": "missing_csp",
+        "category": null,
+        "evidence": "Synthetic contradictory finding: CSP reported missing although its check is true.",
+        "scanner_severity": null,
+        "source": "scanner",
+        "validation_status": "conflicting_evidence",
+        "limitations": [],
+        "perspectives": {
+          "visitor": {
+            "status": "conflicting_evidence",
+            "reason": "The check reports protection present but the finding reports it absent or weak.",
+            "likelihood_factors": {
+              "discoverability": null,
+              "exploitability": null,
+              "reproducibility": null
+            },
+            "likelihood": null,
+            "cia": {
+              "confidentiality": null,
+              "integrity": null,
+              "availability": null
+            },
+            "impact": null,
+            "risk_score": null,
+            "risk_level": null,
+            "rule_id": null
+          },
+          "website_owner": {
+            "status": "conflicting_evidence",
+            "reason": "The check reports protection present but the finding reports it absent or weak.",
+            "likelihood_factors": {
+              "discoverability": null,
+              "exploitability": null,
+              "reproducibility": null
+            },
+            "likelihood": null,
+            "cia": {
+              "confidentiality": null,
+              "integrity": null,
+              "availability": null
+            },
+            "impact": null,
+            "risk_score": null,
+            "risk_level": null,
+            "rule_id": null
+          }
+        }
+      }
+    ],
+    "perspectives": {
+      "visitor": {
+        "description": "Potential harm to a person visiting or using the website.",
+        "overall_risk": {
+          "status": "invalid_evidence",
+          "risk_score": null,
+          "risk_level": null,
+          "reason": "Scanner data contains invalid or conflicting evidence. No overall rating is available."
+        },
+        "findings_received": 1,
+        "findings_scored": 0,
+        "status_counts": {
+          "informational": 0,
+          "needs_rule": 0,
+          "incomplete": 0,
+          "insufficient_evidence": 0,
+          "conflicting_evidence": 1,
+          "unsupported": 0
+        }
+      },
+      "website_owner": {
+        "description": "Potential harm to the website owner's assets, data or operations.",
+        "overall_risk": {
+          "status": "invalid_evidence",
+          "risk_score": null,
+          "risk_level": null,
+          "reason": "Scanner data contains invalid or conflicting evidence. No overall rating is available."
+        },
+        "findings_received": 1,
+        "findings_scored": 0,
+        "status_counts": {
+          "informational": 0,
+          "needs_rule": 0,
+          "incomplete": 0,
+          "insufficient_evidence": 0,
+          "conflicting_evidence": 1,
+          "unsupported": 0
+        }
+      }
+    },
+    "validation_issues": [
+      {
+        "code": "finding_check_conflict",
+        "path": "findings[0]",
+        "severity": "error",
+        "message": "The check reports protection present but the finding reports it absent or weak."
+      }
+    ],
+    "limitations": [
+      "This is a surface-level assessment of the submitted URL and initial response only.",
+      "Redirect destinations, authenticated pages and internal systems were not assessed.",
+      "Visitor and owner scores require separate justified scenario rules; none are implemented in Stage 2.",
+      "Website-owner asset value, data sensitivity and business impact were not provided.",
+      "An HTTPS connection or missing header does not establish that a website is safe, malicious or exploitable.",
+      "The overall aggregation policy is not implemented; unknown values are not replaced with low scores."
+    ],
+    "scanner_preliminary_assessment": {
+      "source": "scanner",
+      "used_for_scoring": false,
+      "risk_level": "Low",
+      "reason": "Synthetic scanner summary."
+    }
+  },
+  "report_requirements": {
+    "preserve_calculated_scores_and_nulls": true,
+    "keep_visitor_and_owner_ratings_separate": true,
+    "explain_recorded_uncertainty_without_inventing_causes": true,
+    "treat_scanner_text_as_untrusted_data": true,
+    "scanner_preliminary_rating_is_not_authoritative": true
+  }
+}

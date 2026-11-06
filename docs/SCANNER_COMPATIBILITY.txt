@@ -1,0 +1,10 @@
+Stage 2 compatibility check with the uploaded scanner source
+Date: 2 November 2026
+Method: execute its inspect_url function with HTTP responses/errors mocked; block real socket connections.
+No changes made to the scanner source. No live scans or webhook deliveries.
+
+missing_headers: PASS {"scan_status": "completed_initial_response", "finding_states": [["hostname_detected", "informational"], ["missing_csp", "needs_rule"], ["weak_x_content_type_options", "needs_rule"], ["missing_or_weak_hsts", "needs_rule"], ["missing_frame_protection", "needs_rule"]]}
+redirect: PASS {"scan_status": "partial", "finding_states": [["hostname_detected", "informational"], ["missing_csp", "needs_rule"], ["weak_x_content_type_options", "needs_rule"], ["missing_or_weak_hsts", "needs_rule"], ["missing_frame_protection", "needs_rule"], ["redirect_detected", "informational"]]}
+cookie_details_cleared: PASS {"scan_status": "partial", "finding_states": [["hostname_detected", "informational"], ["cookie_missing_secure", "insufficient_evidence"], ["cookie_missing_httponly", "insufficient_evidence"], ["cookie_missing_samesite", "insufficient_evidence"]]}
+timeout: PASS {"scan_status": "failed", "finding_states": [["hostname_detected", "informational"], ["request_timeout", "incomplete"]]}
+ssl_error: PASS {"scan_status": "failed", "finding_states": [["hostname_detected", "informational"], ["connection_error", "incomplete"]]}

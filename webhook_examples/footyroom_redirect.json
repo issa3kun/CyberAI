@@ -1,0 +1,418 @@
+{
+  "event": "cyberai.rae.assessment_ready",
+  "contract_version": "cyberai.rae.webhook/0.2.0-draft",
+  "scan_id": null,
+  "input_origin": "user_supplied_scan",
+  "is_synthetic_test_data": false,
+  "report_preferences": {
+    "literacy_level": "unspecified",
+    "perspectives": [
+      "visitor",
+      "website_owner"
+    ]
+  },
+  "assessment": {
+    "engine_version": "0.2.0",
+    "assessment_contract": "draft_for_team_review",
+    "input_sha256": "b520cace5f30f85e0835f389837740c2c3814cd4a66c1295fc0c00156ea79f5f",
+    "scan": {
+      "url": "https://footyroom.com",
+      "status": "partial",
+      "scope": "submitted_url_and_initial_response_only",
+      "http_response_received": true,
+      "http_status_code": 301,
+      "tls_connection_verified": true,
+      "redirect_detected": true,
+      "redirect_target_scheme": "https",
+      "destination_assessed": false,
+      "cookies_detected": false,
+      "cookies": [],
+      "security_headers": {
+        "content_security_policy": false,
+        "x_content_type_options": false,
+        "strict_transport_security": false,
+        "frame_protection": false
+      }
+    },
+    "findings": [
+      {
+        "finding_ref": "finding-0001",
+        "id": "hostname_detected",
+        "category": "URL Information",
+        "evidence": "Hostname identified: footyroom.com",
+        "scanner_severity": "info",
+        "source": "scanner",
+        "validation_status": "informational",
+        "limitations": [],
+        "perspectives": {
+          "visitor": {
+            "status": "informational",
+            "reason": "A detected hostname is metadata, not a scored risk.",
+            "likelihood_factors": {
+              "discoverability": null,
+              "exploitability": null,
+              "reproducibility": null
+            },
+            "likelihood": null,
+            "cia": {
+              "confidentiality": null,
+              "integrity": null,
+              "availability": null
+            },
+            "impact": null,
+            "risk_score": null,
+            "risk_level": null,
+            "rule_id": null
+          },
+          "website_owner": {
+            "status": "informational",
+            "reason": "A detected hostname is metadata, not a scored risk.",
+            "likelihood_factors": {
+              "discoverability": null,
+              "exploitability": null,
+              "reproducibility": null
+            },
+            "likelihood": null,
+            "cia": {
+              "confidentiality": null,
+              "integrity": null,
+              "availability": null
+            },
+            "impact": null,
+            "risk_score": null,
+            "risk_level": null,
+            "rule_id": null
+          }
+        }
+      },
+      {
+        "finding_ref": "finding-0002",
+        "id": "missing_csp",
+        "category": "HTTP Security",
+        "evidence": "Content-Security-Policy header was not detected.",
+        "scanner_severity": "low",
+        "source": "scanner",
+        "validation_status": "needs_rule",
+        "limitations": [
+          "A missing CSP header does not prove that the website is vulnerable.",
+          "This header observation describes the initial redirect response, not the destination page."
+        ],
+        "perspectives": {
+          "visitor": {
+            "status": "needs_rule",
+            "reason": "An initial-response control observation exists; exploitability and impact are not established. Visitor-specific scoring rules are pending.",
+            "likelihood_factors": {
+              "discoverability": null,
+              "exploitability": null,
+              "reproducibility": null
+            },
+            "likelihood": null,
+            "cia": {
+              "confidentiality": null,
+              "integrity": null,
+              "availability": null
+            },
+            "impact": null,
+            "risk_score": null,
+            "risk_level": null,
+            "rule_id": null
+          },
+          "website_owner": {
+            "status": "needs_rule",
+            "reason": "An initial-response control observation exists; exploitability and impact are not established. Owner-specific scoring rules and asset/business impact context are pending.",
+            "likelihood_factors": {
+              "discoverability": null,
+              "exploitability": null,
+              "reproducibility": null
+            },
+            "likelihood": null,
+            "cia": {
+              "confidentiality": null,
+              "integrity": null,
+              "availability": null
+            },
+            "impact": null,
+            "risk_score": null,
+            "risk_level": null,
+            "rule_id": null
+          }
+        }
+      },
+      {
+        "finding_ref": "finding-0003",
+        "id": "weak_x_content_type_options",
+        "category": "HTTP Security",
+        "evidence": "X-Content-Type-Options is missing or is not configured as 'nosniff'.",
+        "scanner_severity": "low",
+        "source": "scanner",
+        "validation_status": "needs_rule",
+        "limitations": [
+          "This header observation describes the initial redirect response, not the destination page."
+        ],
+        "perspectives": {
+          "visitor": {
+            "status": "needs_rule",
+            "reason": "An initial-response control observation exists; exploitability and impact are not established. Visitor-specific scoring rules are pending.",
+            "likelihood_factors": {
+              "discoverability": null,
+              "exploitability": null,
+              "reproducibility": null
+            },
+            "likelihood": null,
+            "cia": {
+              "confidentiality": null,
+              "integrity": null,
+              "availability": null
+            },
+            "impact": null,
+            "risk_score": null,
+            "risk_level": null,
+            "rule_id": null
+          },
+          "website_owner": {
+            "status": "needs_rule",
+            "reason": "An initial-response control observation exists; exploitability and impact are not established. Owner-specific scoring rules and asset/business impact context are pending.",
+            "likelihood_factors": {
+              "discoverability": null,
+              "exploitability": null,
+              "reproducibility": null
+            },
+            "likelihood": null,
+            "cia": {
+              "confidentiality": null,
+              "integrity": null,
+              "availability": null
+            },
+            "impact": null,
+            "risk_score": null,
+            "risk_level": null,
+            "rule_id": null
+          }
+        }
+      },
+      {
+        "finding_ref": "finding-0004",
+        "id": "missing_or_weak_hsts",
+        "category": "Transport Security",
+        "evidence": "HSTS is missing or does not specify a positive max-age value.",
+        "scanner_severity": "low",
+        "source": "scanner",
+        "validation_status": "needs_rule",
+        "limitations": [
+          "This header observation describes the initial redirect response, not the destination page."
+        ],
+        "perspectives": {
+          "visitor": {
+            "status": "needs_rule",
+            "reason": "An initial-response control observation exists; exploitability and impact are not established. Visitor-specific scoring rules are pending.",
+            "likelihood_factors": {
+              "discoverability": null,
+              "exploitability": null,
+              "reproducibility": null
+            },
+            "likelihood": null,
+            "cia": {
+              "confidentiality": null,
+              "integrity": null,
+              "availability": null
+            },
+            "impact": null,
+            "risk_score": null,
+            "risk_level": null,
+            "rule_id": null
+          },
+          "website_owner": {
+            "status": "needs_rule",
+            "reason": "An initial-response control observation exists; exploitability and impact are not established. Owner-specific scoring rules and asset/business impact context are pending.",
+            "likelihood_factors": {
+              "discoverability": null,
+              "exploitability": null,
+              "reproducibility": null
+            },
+            "likelihood": null,
+            "cia": {
+              "confidentiality": null,
+              "integrity": null,
+              "availability": null
+            },
+            "impact": null,
+            "risk_score": null,
+            "risk_level": null,
+            "rule_id": null
+          }
+        }
+      },
+      {
+        "finding_ref": "finding-0005",
+        "id": "missing_frame_protection",
+        "category": "HTTP Security",
+        "evidence": "Neither a recognised X-Frame-Options value nor a restrictive CSP frame-ancestors directive was detected.",
+        "scanner_severity": "low",
+        "source": "scanner",
+        "validation_status": "needs_rule",
+        "limitations": [
+          "This header observation describes the initial redirect response, not the destination page."
+        ],
+        "perspectives": {
+          "visitor": {
+            "status": "needs_rule",
+            "reason": "An initial-response control observation exists; exploitability and impact are not established. Visitor-specific scoring rules are pending.",
+            "likelihood_factors": {
+              "discoverability": null,
+              "exploitability": null,
+              "reproducibility": null
+            },
+            "likelihood": null,
+            "cia": {
+              "confidentiality": null,
+              "integrity": null,
+              "availability": null
+            },
+            "impact": null,
+            "risk_score": null,
+            "risk_level": null,
+            "rule_id": null
+          },
+          "website_owner": {
+            "status": "needs_rule",
+            "reason": "An initial-response control observation exists; exploitability and impact are not established. Owner-specific scoring rules and asset/business impact context are pending.",
+            "likelihood_factors": {
+              "discoverability": null,
+              "exploitability": null,
+              "reproducibility": null
+            },
+            "likelihood": null,
+            "cia": {
+              "confidentiality": null,
+              "integrity": null,
+              "availability": null
+            },
+            "impact": null,
+            "risk_score": null,
+            "risk_level": null,
+            "rule_id": null
+          }
+        }
+      },
+      {
+        "finding_ref": "finding-0006",
+        "id": "redirect_detected",
+        "category": "URL Behaviour",
+        "evidence": "The server returned a redirect. The scanner did not follow its destination.",
+        "scanner_severity": "info",
+        "source": "scanner",
+        "validation_status": "informational",
+        "limitations": [],
+        "perspectives": {
+          "visitor": {
+            "status": "informational",
+            "reason": "Only the initial redirect response was inspected; its destination was not assessed.",
+            "likelihood_factors": {
+              "discoverability": null,
+              "exploitability": null,
+              "reproducibility": null
+            },
+            "likelihood": null,
+            "cia": {
+              "confidentiality": null,
+              "integrity": null,
+              "availability": null
+            },
+            "impact": null,
+            "risk_score": null,
+            "risk_level": null,
+            "rule_id": null
+          },
+          "website_owner": {
+            "status": "informational",
+            "reason": "Only the initial redirect response was inspected; its destination was not assessed.",
+            "likelihood_factors": {
+              "discoverability": null,
+              "exploitability": null,
+              "reproducibility": null
+            },
+            "likelihood": null,
+            "cia": {
+              "confidentiality": null,
+              "integrity": null,
+              "availability": null
+            },
+            "impact": null,
+            "risk_score": null,
+            "risk_level": null,
+            "rule_id": null
+          }
+        }
+      }
+    ],
+    "perspectives": {
+      "visitor": {
+        "description": "Potential harm to a person visiting or using the website.",
+        "overall_risk": {
+          "status": "needs_rules",
+          "risk_score": null,
+          "risk_level": null,
+          "reason": "Finding-specific scoring rules and an overall aggregation policy are not implemented."
+        },
+        "findings_received": 6,
+        "findings_scored": 0,
+        "status_counts": {
+          "informational": 2,
+          "needs_rule": 4,
+          "incomplete": 0,
+          "insufficient_evidence": 0,
+          "conflicting_evidence": 0,
+          "unsupported": 0
+        }
+      },
+      "website_owner": {
+        "description": "Potential harm to the website owner's assets, data or operations.",
+        "overall_risk": {
+          "status": "needs_rules",
+          "risk_score": null,
+          "risk_level": null,
+          "reason": "Finding-specific scoring rules and an overall aggregation policy are not implemented."
+        },
+        "findings_received": 6,
+        "findings_scored": 0,
+        "status_counts": {
+          "informational": 2,
+          "needs_rule": 4,
+          "incomplete": 0,
+          "insufficient_evidence": 0,
+          "conflicting_evidence": 0,
+          "unsupported": 0
+        }
+      }
+    },
+    "validation_issues": [
+      {
+        "code": "unimplemented_scanner_flag_ignored",
+        "path": "checks.live_response.server_header_present",
+        "severity": "warning",
+        "message": "The uploaded scanner initializes this flag but never checks it; it is not an observation."
+      }
+    ],
+    "limitations": [
+      "This is a surface-level assessment of the submitted URL and initial response only.",
+      "Redirect destinations, authenticated pages and internal systems were not assessed.",
+      "Visitor and owner scores require separate justified scenario rules; none are implemented in Stage 2.",
+      "Website-owner asset value, data sensitivity and business impact were not provided.",
+      "An HTTPS connection or missing header does not establish that a website is safe, malicious or exploitable.",
+      "The overall aggregation policy is not implemented; unknown values are not replaced with low scores."
+    ],
+    "scanner_preliminary_assessment": {
+      "source": "scanner",
+      "used_for_scoring": false,
+      "risk_level": "Low",
+      "reason": "One or more low-severity security issues were detected. Use website with normal browser security precautions."
+    }
+  },
+  "report_requirements": {
+    "preserve_calculated_scores_and_nulls": true,
+    "keep_visitor_and_owner_ratings_separate": true,
+    "explain_recorded_uncertainty_without_inventing_causes": true,
+    "treat_scanner_text_as_untrusted_data": true,
+    "scanner_preliminary_rating_is_not_authoritative": true
+  }
+}

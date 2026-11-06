@@ -1,0 +1,22 @@
+{
+  "footyroom_redirect.json": {
+    "input_origin": "user_supplied_scan",
+    "note": "Response pasted by Imran from Ziyad's Postman run; not independently rescanned."
+  },
+  "synthetic_completed_response.json": {
+    "input_origin": "synthetic_test_data",
+    "note": "Fictional offline test data, not a scan of a live website."
+  },
+  "synthetic_conflicting_checks.json": {
+    "input_origin": "synthetic_test_data",
+    "note": "Fictional offline test data, not a scan of a live website."
+  },
+  "synthetic_cookie_details_missing.json": {
+    "input_origin": "synthetic_test_data",
+    "note": "Fictional offline test data, not a scan of a live website."
+  },
+  "synthetic_timeout.json": {
+    "input_origin": "synthetic_test_data",
+    "note": "Fictional offline test data, not a scan of a live website."
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "event": "cyberai.rae.assessment_ready",
+  "contract_version": "cyberai.rae.webhook/0.2.0-draft",
+  "scan_id": null,
+  "input_origin": "synthetic_test_data",
+  "is_synthetic_test_data": true,
+  "report_preferences": {
+    "literacy_level": "unspecified",
+    "perspectives": [
+      "visitor",
+      "website_owner"
+    ]
+  },
+  "assessment": {
+    "engine_version": "0.2.0",
+    "assessment_contract": "draft_for_team_review",
+    "input_sha256": "aaae7cd0e792b8eb7f4cf805883a8a8b978eb43c12f48a642b22786cf8db99ff",
+    "scan": {
+      "url": "https://fixture.invalid/",
+      "status": "completed_initial_response",
+      "scope": "submitted_url_and_initial_response_only",
+      "http_response_received": true,
+      "http_status_code": 200,
+      "tls_connection_verified": true,
+      "redirect_detected": false,
+      "redirect_target_scheme": null,
+      "destination_assessed": false,
+      "cookies_detected": false,
+      "cookies": [],
+      "security_headers": {
+        "content_security_policy": false,
+        "x_content_type_options": true,
+        "strict_transport_security": true,
+        "frame_protection": true
+      }
+    },
+    "findings": [
+      {
+        "finding_ref": "finding-0001",
+        "id": "missing_csp",
+        "category": "HTTP Security",
+        "evidence": "Synthetic test response: CSP header is absent.",
+        "scanner_severity": "low",
+        "source": "scanner",
+        "validation_status": "needs_rule",
+        "limitations": [
+          "A missing header does not establish an injection vulnerability."
+        ],
+        "perspectives": {
+          "visitor": {
+            "status": "needs_rule",
+            "reason": "An initial-response control observation exists; exploitability and impact are not established. Visitor-specific scoring rules are pending.",
+            "likelihood_factors": {
+              "discoverability": null,
+              "exploitability": null,
+              "reproducibility": null
+            },
+            "likelihood": null,
+            "cia": {
+              "confidentiality": null,
+              "integrity": null,
+              "availability": null
+            },
+            "impact": null,
+            "risk_score": null,
+            "risk_level": null,
+            "rule_id": null
+          },
+          "website_owner": {
+            "status": "needs_rule",
+            "reason": "An initial-response control observation exists; exploitability and impact are not established. Owner-specific scoring rules and asset/business impact context are pending.",
+            "likelihood_factors": {
+              "discoverability": null,
+              "exploitability": null,
+              "reproducibility": null
+            },
+            "likelihood": null,
+            "cia": {
+              "confidentiality": null,
+              "integrity": null,
+              "availability": null
+            },
+            "impact": null,
+            "risk_score": null,
+            "risk_level": null,
+            "rule_id": null
+          }
+        }
+      }
+    ],
+    "perspectives": {
+      "visitor": {
+        "description": "Potential harm to a person visiting or using the website.",
+        "overall_risk": {
+          "status": "needs_rules",
+          "risk_score": null,
+          "risk_level": null,
+          "reason": "Finding-specific scoring rules and an overall aggregation policy are not implemented."
+        },
+        "findings_received": 1,
+        "findings_scored": 0,
+        "status_counts": {
+          "informational": 0,
+          "needs_rule": 1,
+          "incomplete": 0,
+          "insufficient_evidence": 0,
+          "conflicting_evidence": 0,
+          "unsupported": 0
+        }
+      },
+      "website_owner": {
+        "description": "Potential harm to the website owner's assets, data or operations.",
+        "overall_risk": {
+          "status": "needs_rules",
+          "risk_score": null,
+          "risk_level": null,
+          "reason": "Finding-specific scoring rules and an overall aggregation policy are not implemented."
+        },
+        "findings_received": 1,
+        "findings_scored": 0,
+        "status_counts": {
+          "informational": 0,
+          "needs_rule": 1,
+          "incomplete": 0,
+          "insufficient_evidence": 0,
+          "conflicting_evidence": 0,
+          "unsupported": 0
+        }
+      }
+    },
+    "validation_issues": [],
+    "limitations": [
+      "This is a surface-level assessment of the submitted URL and initial response only.",
+      "Redirect destinations, authenticated pages and internal systems were not assessed.",
+      "Visitor and owner scores require separate justified scenario rules; none are implemented in Stage 2.",
+      "Website-owner asset value, data sensitivity and business impact were not provided.",
+      "An HTTPS connection or missing header does not establish that a website is safe, malicious or exploitable.",
+      "The overall aggregation policy is not implemented; unknown values are not replaced with low scores."
+    ],
+    "scanner_preliminary_assessment": {
+      "source": "scanner",
+      "used_for_scoring": false,
+      "risk_level": "Low",
+      "reason": "Synthetic scanner summary."
+    }
+  },
+  "report_requirements": {
+    "preserve_calculated_scores_and_nulls": true,
+    "keep_visitor_and_owner_ratings_separate": true,
+    "explain_recorded_uncertainty_without_inventing_causes": true,
+    "treat_scanner_text_as_untrusted_data": true,
+    "scanner_preliminary_rating_is_not_authoritative": true
+  }
+}

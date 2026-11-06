@@ -1,0 +1,1 @@
+"""Marks scanner as a Python package"""

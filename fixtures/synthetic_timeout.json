@@ -1,0 +1,26 @@
+{
+  "url": "https://fixture.invalid/",
+  "success": true,
+  "checks": {
+    "https_in_submitted_url": true,
+    "live_response": {
+      "request_completed": false,
+      "http_status_code": null,
+      "tls_connection_verified": null,
+      "redirect_detected": false,
+      "cookies_detected": false,
+      "cookies": [],
+      "security_headers": {}
+    }
+  },
+  "findings": [
+    {
+      "id": "request_timeout",
+      "evidence": "Synthetic request failure."
+    }
+  ],
+  "preliminary_assessment": {
+    "risk_level": "Low",
+    "reason": "Synthetic scanner summary."
+  }
+}

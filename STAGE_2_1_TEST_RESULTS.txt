@@ -1,0 +1,45 @@
+CyberAI RAE Stage 2.1 verification — 3 November 2026
+
+Command (run from the folder containing rae_api.py):
+    python -m unittest -v
+
+Environment used for development verification:
+    Python 3.12.14
+    Flask 3.1.3 / Werkzeug 3.1.9
+    Flask dependencies loaded locally from the supplied scanner archive.
+    The ZIP does not vendor those dependencies; install requirements-n8n.txt.
+
+Result:
+    Ran 68 tests
+    OK
+
+Breakdown:
+    14 original Stage 1 tests
+    30 original Stage 2 tests
+    24 new integration tests
+
+New checks cover:
+    Existing engine output preserved through the Flask endpoint.
+    All five current fixtures, failed scans, unknown findings and null scores.
+    Separate visitor/website-owner perspectives and metadata propagation.
+    API token authentication, bad JSON/structure/content type and size limits.
+    Flask Blueprint reuse inside an existing application.
+    Real local HTTP evidence-to-RAE round trip using a loopback Flask server.
+    UTF-8 delivery, optional authentication headers, HTTP errors and redirects.
+    Empty, non-JSON and oversized replies; uncertain delivery with no retries.
+    CLI file input, saved receipts, missing files and save errors after delivery.
+
+Artifact checks:
+    All 24 original Stage 2 files retained byte-for-byte.
+    Original README retained as README_STAGE_2.md; new README is Stage 2.1.
+    Every supplied JSON file parses.
+    New n8n workflow has three connected nodes, is inactive, and contains no
+    stored credentials. The Header Auth credential must be selected after import.
+
+Verification limits:
+    No request was sent to the user's running n8n or any external scanner/LLM.
+    A local Flask server stood in for the HTTP transport endpoint during tests.
+    Workflow JSON/node settings were inspected, not executed in n8n.
+    Windows Docker Desktop networking and the workflow import need user testing.
+    Remote teammate hosting, Bryan's LLM/report code, scoring rules and overall
+    aggregation remain pending. HTTP 200 does not validate a risk score/report.
