@@ -1,84 +1,106 @@
-CYBERAI RAE + n8n | Windows PowerShell command notes
+CYBERAI | Windows PowerShell demo and Git commands
 
-Run one section at a time. The project folder contains rae_api.py and send_scan.py.
-If you move the project, update the folder path in sections 1 and 2.
+OPEN THREE POWERSHELL TABS IN VS CODE
+Terminal 1 starts n8n and the RAE. Leave it running on port 5001.
+Terminal 2 starts Ziyad's scanner. Leave it running on port 5000 for live scans.
+Terminal 3 sends demo requests, reads receipts, and runs Git.
 
-1. AFTER RESTARTING YOUR LAPTOP — TERMINAL A
-
-# Open Docker Desktop and wait for its engine to start.
-docker start cyberai-n8n
-
+Run this line in each idle tab to start in the project folder.
 Set-Location -LiteralPath 'C:\Users\Acer\Desktop\Major Project\Risk Assessment Engine\CyberAI_Risk_Engine_Stage_2\cyberai-risk-engine'
 
-# Load your existing token from your Windows user account and start the RAE.
+1. TERMINAL 1 | START N8N AND THE RAE
+Open Docker Desktop and wait for its engine. Run these lines in terminal 1.
+docker start cyberai-n8n
 $env:CYBERAI_RAE_API_TOKEN = [Environment]::GetEnvironmentVariable('CYBERAI_RAE_API_TOKEN', 'User')
 python rae_api.py --host 0.0.0.0 --port 5001
 
-# Leave terminal A running. Open n8n at http://localhost:5678 in your browser.
+When terminal 1 says the RAE is running on port 5001, leave it open.
+If your RAE is already running there, go straight to section 2 for a live scan
+or section 4 for a replay. If only n8n is stopped, run docker start cyberai-n8n
+in terminal 3 after opening Docker Desktop. Check the intake workflow is published.
 
-2. SEND A SCAN — TERMINAL B
-
-Set-Location -LiteralPath 'C:\Users\Acer\Desktop\Major Project\Risk Assessment Engine\CyberAI_Risk_Engine_Stage_2\cyberai-risk-engine'
+2. TERMINAL 2 | START THE LIVE SCANNER
+From the project folder in terminal 2, run these lines once per session.
+Set-Location .\cyberai-api-backend
 $env:CYBERAI_N8N_SCAN_WEBHOOK_URL = 'http://localhost:5678/webhook/cyberai-scanner-intake'
+.\.venv-local\Scripts\python.exe -m flask --app ziyad_app:app run --port 5000
 
-# Optional check that the RAE is running. Expect status ready.
-Invoke-RestMethod -Uri 'http://localhost:5001/api/rae/health'
+Wait for "Serving Flask app 'ziyad_app:app'" and port 5000. Leave terminal 2 open.
 
-# Pick the test you need.
+3. TERMINAL 3 | SEND A LIVE SCAN
+With terminals 1 and 2 running, paste these three lines into terminal 3.
+To scan a different site, change $targetUrl and rerun all three lines.
+$targetUrl = 'https://example.com'
+$scanBody = @{url = $targetUrl} | ConvertTo-Json -Compress
+Invoke-RestMethod -Method Post -Uri 'http://127.0.0.1:5000/api/scan' -ContentType 'application/json' -Body $scanBody | ConvertTo-Json -Depth 20
 
-# A. Synthetic scan with a website response
-python send_scan.py .\fixtures\synthetic_completed_response.json --input-origin synthetic_test_data --scan-id demo-001 --output .\demo-001-receipt.json
+IN YOUR BROWSER | VERIFY THE ASSESSMENT
+Open http://localhost:5678 > CyberAI Scanner to RAE - Local Prototype > Executions.
+Open the newest run. Receive scanner result shows the URL at body.scan_result.url.
+Assess scan with RAE shows assessment.scan.url and assessment.scan.status.
+If you published Make Bryan JSON, open that node > Output > Binary > Download.
+That file contains the full RAE payload for Bryan, including reporting instructions.
 
-# B. Synthetic timeout
-python send_scan.py .\fixtures\synthetic_timeout.json --input-origin synthetic_test_data --scan-id demo-timeout --output .\demo-timeout-receipt.json
+4. TERMINAL 3 | REPLAY A SAVED SCAN
+Keep n8n and terminal 1 running. Do this from the project folder in terminal 3.
+Run these three lines before each replay to make a fresh receipt filename.
+$env:CYBERAI_N8N_SCAN_WEBHOOK_URL = 'http://localhost:5678/webhook/cyberai-scanner-intake'
+$demoId = 'demo-' + (Get-Date -Format 'yyyyMMdd-HHmmss-fff')
+$receipt = '.\' + $demoId + '-receipt.json'
 
-# Check that the timeout was recorded. Expect failed, even with HTTP 200.
-(Get-Content .\demo-timeout-receipt.json -Raw | ConvertFrom-Json).response.assessment.scan.status
+Choose one case in terminal 3. Run its second line after the sender reports HTTP 200.
 
-# C. Ziyad's real scanner result
-# Save the full response body from his POST /api/scan as ziyad-scan.json
-# in the project folder. Use a fresh scan ID for each new run.
-python send_scan.py .\ziyad_scan.json --input-origin user_supplied_scan --scan-id ziyad-001 --output .\ziyad-001-receipt.json
+4A. TERMINAL 3 | SAVED SYNTHETIC SCAN
+python send_scan.py .\fixtures\synthetic_completed_response.json --input-origin synthetic_test_data --scan-id $demoId --output $receipt
+Get-Content $receipt -Raw
 
-# Check that the receipt matches the scan you sent.
-$ziyadReceipt = Get-Content .\ziyad-001-receipt.json -Raw | ConvertFrom-Json
-$ziyadReceipt.http_status
-$ziyadReceipt.response.scan_id
-$ziyadReceipt.response.assessment.scan.url
-$ziyadReceipt.response.assessment.scan.status
+4B. TERMINAL 3 | SAVED SYNTHETIC TIMEOUT
+python send_scan.py .\fixtures\synthetic_timeout.json --input-origin synthetic_test_data --scan-id $demoId --output $receipt
+(Get-Content $receipt -Raw | ConvertFrom-Json).response.assessment.scan.status
 
-3. SAVE THE CURRENT TOKEN — ONCE PER TOKEN
+Expect "failed" for the website check. HTTP 200 means n8n returned the assessment.
 
-# If you've already saved your working token, skip this section.
-# In terminal A, press Ctrl+C to stop the API before entering this block.
-# This saves the same token that your current terminal already uses.
+4C. TERMINAL 3 | ZIYAD'S SAVED SCAN
+Save the full scanner JSON as ziyad_scan.json beside send_scan.py first.
+python send_scan.py .\ziyad_scan.json --input-origin user_supplied_scan --scan-id $demoId --output $receipt
+Get-Content $receipt -Raw
 
-if ($env:CYBERAI_RAE_API_TOKEN) {
-    [Environment]::SetEnvironmentVariable(
-        'CYBERAI_RAE_API_TOKEN',
-        $env:CYBERAI_RAE_API_TOKEN,
-        'User'
-    )
-    Write-Host 'Existing token saved for future sessions.'
-} else {
-    Write-Error 'Use the PowerShell terminal that started your RAE API.'
-}
+WHAT TO SAY IN THE DEMO
+"In the live demo, PowerShell sends a URL to Ziyad's scanner. In the replay, I
+send saved checks and findings. Both go through n8n to my Risk Assessment
+Engine, which assesses the evidence for visitors and website owners. The
+receipt's response field is the full assessment payload for Bryan's LLM."
 
-# Restart with section 1. In n8n, Assess scan with RAE uses Header Auth
-# with the name X-CyberAI-Token and the same token value.
+5. TERMINAL 3 | COMMIT AND PUSH THIS NOTES FILE
+Save the updated CyberAI_PowerShell_Commands.txt in the project folder beside
+rae_api.py, replacing your old copy. Run the first line in terminal 3 from
+that same folder. Check that Git shows main and any merge is finished, then
+run the remaining lines one at a time.
+git status --short --branch
+git add -- CyberAI_PowerShell_Commands.txt
+git --no-pager diff --cached --stat -- CyberAI_PowerShell_Commands.txt
+git commit -m "Clarify CyberAI demo terminal steps" -- CyberAI_PowerShell_Commands.txt
+git push -u origin main
 
-4. INSTALL DEPENDENCIES AND RUN TESTS — AS NEEDED
+Refresh https://github.com/issa3kun/CyberAI and open the notes on main.
+If Git says "fetch first" and your working tree is clean, run
+git pull --no-rebase --no-edit origin main
+in terminal 3. Retry the push once the merge succeeds.
 
-# Run from the project folder.
-python -m pip install -r requirements-n8n.txt
+SETUP AND QUICK FIXES | ONLY IF NEEDED
+# Terminal 3, project folder. Install the RAE dependencies or run its tests.
+python -m pip install -r .\requirements-n8n.txt
 python -m unittest -v
 
-# Stage 2.1 contains 68 tests. Run from the folder with the test_*.py files.
+# Terminal 2, inside cyberai-api-backend, before starting the scanner.
+python -m venv .venv-local
+.\.venv-local\Scripts\python.exe -m pip install -r .\requirements.txt
 
-IF A SEND FAILS
+# Terminal 1, after Ctrl+C. Save an existing working token and restart section 1.
+if ($env:CYBERAI_RAE_API_TOKEN) {
+    [Environment]::SetEnvironmentVariable('CYBERAI_RAE_API_TOKEN', $env:CYBERAI_RAE_API_TOKEN, 'User')
+}
 
-Open n8n > Executions > latest failed run and click the red node.
-A 401 in Assess scan with RAE means its Header Auth name or value needs checking.
-A connection error at that node means check terminal A and the RAE health URL.
-$env:CYBERAI_N8N_SCAN_WEBHOOK_URL = "http://localhost:5678/webhook/cyberai-scanner-intake"
-python send_scan.py .\ziyad_scan.json --input-origin user_supplied_scan --scan-id ziyad-001 --output .\ziyad-001-receipt.json
+# Terminal 3. If n8n cannot reach the RAE, check terminal 1 and test its health.
+Invoke-RestMethod -Uri 'http://localhost:5001/api/rae/health'
+If the RAE node shows 401, check X-CyberAI-Token in its n8n Header Auth credential.
