@@ -37,13 +37,15 @@ A successful HTTP response is not proof that a website is safe, a score is justi
 | `send_scan.py` | One-command sender; also callable from Ziyad's code |
 | `rae_api.py` | Exposes `/api/rae/assess`; supplies a Blueprint for Ziyad's Flask app |
 | `requirements-n8n.txt` | Flask dependency for the API |
-| `n8n/CyberAI_Scanner_Intake.json` | Local three-node workflow, without LLM nodes or embedded secrets |
+| `n8n/CyberAI_Scanner_Intake.json` | Local three-node workflow that returns the RAE assessment |
+| `n8n/CyberAI_Bryan_Report.json` | Bryan’s separate draft report workflow export |
 | `test_n8n_integration.py` | New contract/API/transport tests |
 | `docs/N8N_SETUP.md` | Setup, results, handoff and troubleshooting |
 | `docs/INTAKE_CONTRACT.md` | Exact draft scanner-to-n8n format |
-| `STAGE_2_1_TEST_RESULTS.txt` | Test results and verification limits |
 
 `README_STAGE_2.md` is the original Stage 2 README. Earlier engines, tests, fixtures and documents are retained. `TEST_RESULTS.txt` is the earlier record. Python may regenerate `__pycache__`; it is disposable compiled bytecode and is not included.
+
+Previous receipts and assessment exports are in `test-evidence/`. New runs can write receipts to the project folder and assessment exports to `rae-exports/`.
 
 **Use `fixtures/*.json` with the new sender.** They contain raw scanner results. Files in `webhook_examples/` are already-prepared RAE output for Bryan, so they are not input to the new scanner intake.
 
@@ -60,6 +62,6 @@ Expected: **68 tests, OK**. Running from a parent folder may discover zero tests
 
 ## Scanner compatibility
 
-The uploaded scanner clears its parsed cookies in `scanner/url_checks.py` with `live_checks["cookies"] = []` after inspection. Ziyad should retain that list and rerun the cookie checks. The RAE marks detected cookies without details as uncertain; it does not invent attributes.
+The bundled scanner retains parsed cookie names and security attributes. The RAE marks detected cookies with missing details as uncertain.
 
 The API and sender do not change the mathematics. For pending scoring work, see `docs/NEXT_STEPS.md`. All new intake and existing output contracts remain drafts for team agreement.

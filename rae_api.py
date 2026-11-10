@@ -3,14 +3,20 @@
 import argparse
 import hmac
 import os
+from datetime import datetime
+from pathlib import Path
+from tempfile import TemporaryDirectory
+from threading import Lock
+from time import sleep
 
-from flask import Blueprint, Flask, jsonify, request
+from flask import Blueprint, Flask, current_app, jsonify, request
 from werkzeug.exceptions import BadRequest, RequestEntityTooLarge
 
 from scan_message import validate_scan_message
 from stage2_engine import assess_scan, build_webhook_payload
 
 MAX_REQUEST_BYTES = 1024 * 1024
+_EXPORT_LOCK = Lock()
 
 
 def _error(code, message, status):
@@ -50,12 +56,39 @@ def create_rae_blueprint(api_token=None):
         try:
             validate_scan_message(message)
             assessment = assess_scan(message["scan_result"])
-            result = build_webhook_payload(assessment, input_origin=message["input_origin"],
-                                           literacy_level=message["literacy_level"],
-                                           scan_id=message.get("scan_id"))
+            result = build_webhook_payload(
+                assessment,
+                input_origin=message["input_origin"],
+                literacy_level=message["literacy_level"],
+                scan_id=message.get("scan_id"),
+            )
         except ValueError as exc:
             return _error("invalid_scan_message", str(exc), 400)
-        return jsonify(result)
+        response = jsonify(result)
+        export_dir = current_app.config.get("CYBERAI_RAE_EXPORT_DIR")
+        if export_dir is not None:
+            try:
+                export_dir.mkdir(exist_ok=True)
+
+                with TemporaryDirectory(dir=export_dir) as staging_dir:
+                    staged_file = Path(staging_dir) / "assessment.json"
+                    staged_file.write_text(
+                        current_app.json.dumps(result, indent=2) + "\n",
+                        encoding="utf-8",
+                    )
+
+                    with _EXPORT_LOCK:
+                        while True:
+                            now = datetime.now()
+                            destination = export_dir / now.strftime("%Y-%m-%d_%H-%M-%S.json")
+                            if not destination.exists():
+                                staged_file.replace(destination)
+                                break
+                            # Keep both exports by waiting for the next wall-clock second.
+                            sleep(1 - now.microsecond / 1_000_000)
+            except OSError:
+                current_app.logger.exception("Could not save the RAE assessment to %s", export_dir)
+        return response
 
     return blueprint
 
@@ -79,6 +112,7 @@ def main(argv=None):
         app = create_app()
     except ValueError as exc:
         parser.error(str(exc))
+    app.config["CYBERAI_RAE_EXPORT_DIR"] = Path(__file__).resolve().parent / "rae-exports"
     app.run(host=args.host, port=args.port, debug=False, use_reloader=False)
 
 

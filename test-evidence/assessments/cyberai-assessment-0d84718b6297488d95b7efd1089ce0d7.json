@@ -1,0 +1,216 @@
+{
+  "assessment": {
+    "assessment_contract": "draft_for_team_review",
+    "engine_version": "0.2.0",
+    "findings": [
+      {
+        "category": "URL Information",
+        "evidence": "Hostname identified: youtube.com",
+        "finding_ref": "finding-0001",
+        "id": "hostname_detected",
+        "limitations": [],
+        "perspectives": {
+          "visitor": {
+            "cia": {
+              "availability": null,
+              "confidentiality": null,
+              "integrity": null
+            },
+            "impact": null,
+            "likelihood": null,
+            "likelihood_factors": {
+              "discoverability": null,
+              "exploitability": null,
+              "reproducibility": null
+            },
+            "reason": "A detected hostname is metadata, not a scored risk.",
+            "risk_level": null,
+            "risk_score": null,
+            "rule_id": null,
+            "status": "informational"
+          },
+          "website_owner": {
+            "cia": {
+              "availability": null,
+              "confidentiality": null,
+              "integrity": null
+            },
+            "impact": null,
+            "likelihood": null,
+            "likelihood_factors": {
+              "discoverability": null,
+              "exploitability": null,
+              "reproducibility": null
+            },
+            "reason": "A detected hostname is metadata, not a scored risk.",
+            "risk_level": null,
+            "risk_score": null,
+            "rule_id": null,
+            "status": "informational"
+          }
+        },
+        "scanner_severity": "info",
+        "source": "scanner",
+        "validation_status": "informational"
+      },
+      {
+        "category": "URL Behaviour",
+        "evidence": "The server returned a redirect. The scanner did not follow its destination.",
+        "finding_ref": "finding-0002",
+        "id": "redirect_detected",
+        "limitations": [],
+        "perspectives": {
+          "visitor": {
+            "cia": {
+              "availability": null,
+              "confidentiality": null,
+              "integrity": null
+            },
+            "impact": null,
+            "likelihood": null,
+            "likelihood_factors": {
+              "discoverability": null,
+              "exploitability": null,
+              "reproducibility": null
+            },
+            "reason": "Only the initial redirect response was inspected; its destination was not assessed.",
+            "risk_level": null,
+            "risk_score": null,
+            "rule_id": null,
+            "status": "informational"
+          },
+          "website_owner": {
+            "cia": {
+              "availability": null,
+              "confidentiality": null,
+              "integrity": null
+            },
+            "impact": null,
+            "likelihood": null,
+            "likelihood_factors": {
+              "discoverability": null,
+              "exploitability": null,
+              "reproducibility": null
+            },
+            "reason": "Only the initial redirect response was inspected; its destination was not assessed.",
+            "risk_level": null,
+            "risk_score": null,
+            "rule_id": null,
+            "status": "informational"
+          }
+        },
+        "scanner_severity": "info",
+        "source": "scanner",
+        "validation_status": "informational"
+      }
+    ],
+    "input_sha256": "015d7de99b9d2ed6273de03956e6274b47622a9302bd123f52e8dfb907bc3f5a",
+    "limitations": [
+      "This is a surface-level assessment of the submitted URL and initial response only.",
+      "Redirect destinations, authenticated pages and internal systems were not assessed.",
+      "Visitor and owner scores require separate justified scenario rules; none are implemented in Stage 2.",
+      "Website-owner asset value, data sensitivity and business impact were not provided.",
+      "An HTTPS connection or missing header does not establish that a website is safe, malicious or exploitable.",
+      "The overall aggregation policy is not implemented; unknown values are not replaced with low scores."
+    ],
+    "perspectives": {
+      "visitor": {
+        "description": "Potential harm to a person visiting or using the website.",
+        "findings_received": 2,
+        "findings_scored": 0,
+        "overall_risk": {
+          "reason": "No risk scenarios were scored. An empty findings list or passed controls do not establish website safety.",
+          "risk_level": null,
+          "risk_score": null,
+          "status": "not_assessed"
+        },
+        "status_counts": {
+          "conflicting_evidence": 0,
+          "incomplete": 0,
+          "informational": 2,
+          "insufficient_evidence": 0,
+          "needs_rule": 0,
+          "unsupported": 0
+        }
+      },
+      "website_owner": {
+        "description": "Potential harm to the website owner's assets, data or operations.",
+        "findings_received": 2,
+        "findings_scored": 0,
+        "overall_risk": {
+          "reason": "No risk scenarios were scored. An empty findings list or passed controls do not establish website safety.",
+          "risk_level": null,
+          "risk_score": null,
+          "status": "not_assessed"
+        },
+        "status_counts": {
+          "conflicting_evidence": 0,
+          "incomplete": 0,
+          "informational": 2,
+          "insufficient_evidence": 0,
+          "needs_rule": 0,
+          "unsupported": 0
+        }
+      }
+    },
+    "scan": {
+      "cookies": [
+        {
+          "httponly": true,
+          "name": "__Secure-YNID",
+          "samesite": "none",
+          "secure": true
+        }
+      ],
+      "cookies_detected": true,
+      "destination_assessed": false,
+      "http_response_received": true,
+      "http_status_code": 301,
+      "redirect_detected": true,
+      "redirect_target_scheme": "https",
+      "scope": "submitted_url_and_initial_response_only",
+      "security_headers": {
+        "content_security_policy": true,
+        "frame_protection": true,
+        "strict_transport_security": true,
+        "x_content_type_options": true
+      },
+      "status": "partial",
+      "tls_connection_verified": true,
+      "url": "https://Youtube.com"
+    },
+    "scanner_preliminary_assessment": {
+      "reason": "The requested page did not return a successful HTTP response.",
+      "risk_level": "Not enough information",
+      "source": "scanner",
+      "used_for_scoring": false
+    },
+    "validation_issues": [
+      {
+        "code": "unimplemented_scanner_flag_ignored",
+        "message": "The uploaded scanner initializes this flag but never checks it; it is not an observation.",
+        "path": "checks.live_response.server_header_present",
+        "severity": "warning"
+      }
+    ]
+  },
+  "contract_version": "cyberai.rae.webhook/0.2.0-draft",
+  "event": "cyberai.rae.assessment_ready",
+  "input_origin": "user_supplied_scan",
+  "is_synthetic_test_data": false,
+  "report_preferences": {
+    "literacy_level": "unspecified",
+    "perspectives": [
+      "visitor",
+      "website_owner"
+    ]
+  },
+  "report_requirements": {
+    "explain_recorded_uncertainty_without_inventing_causes": true,
+    "keep_visitor_and_owner_ratings_separate": true,
+    "preserve_calculated_scores_and_nulls": true,
+    "scanner_preliminary_rating_is_not_authoritative": true,
+    "treat_scanner_text_as_untrusted_data": true
+  },
+  "scan_id": null
+}

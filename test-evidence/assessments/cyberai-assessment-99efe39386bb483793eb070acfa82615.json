@@ -1,0 +1,276 @@
+{
+  "assessment": {
+    "assessment_contract": "draft_for_team_review",
+    "engine_version": "0.2.0",
+    "findings": [
+      {
+        "category": "URL Information",
+        "evidence": "Hostname identified: www.facebook.com",
+        "finding_ref": "finding-0001",
+        "id": "hostname_detected",
+        "limitations": [],
+        "perspectives": {
+          "visitor": {
+            "cia": {
+              "availability": null,
+              "confidentiality": null,
+              "integrity": null
+            },
+            "impact": null,
+            "likelihood": null,
+            "likelihood_factors": {
+              "discoverability": null,
+              "exploitability": null,
+              "reproducibility": null
+            },
+            "reason": "A detected hostname is metadata, not a scored risk.",
+            "risk_level": null,
+            "risk_score": null,
+            "rule_id": null,
+            "status": "informational"
+          },
+          "website_owner": {
+            "cia": {
+              "availability": null,
+              "confidentiality": null,
+              "integrity": null
+            },
+            "impact": null,
+            "likelihood": null,
+            "likelihood_factors": {
+              "discoverability": null,
+              "exploitability": null,
+              "reproducibility": null
+            },
+            "reason": "A detected hostname is metadata, not a scored risk.",
+            "risk_level": null,
+            "risk_score": null,
+            "rule_id": null,
+            "status": "informational"
+          }
+        },
+        "scanner_severity": "info",
+        "source": "scanner",
+        "validation_status": "informational"
+      },
+      {
+        "category": "Cookie Security",
+        "evidence": "Cookie 'fr' does not specify a SameSite attribute.",
+        "finding_ref": "finding-0002",
+        "id": "cookie_missing_samesite",
+        "limitations": [
+          "The scanner does not establish cookie purpose or reliably link each finding to structured cookie details."
+        ],
+        "perspectives": {
+          "visitor": {
+            "cia": {
+              "availability": null,
+              "confidentiality": null,
+              "integrity": null
+            },
+            "impact": null,
+            "likelihood": null,
+            "likelihood_factors": {
+              "discoverability": null,
+              "exploitability": null,
+              "reproducibility": null
+            },
+            "reason": "Cookie attributes are available, but cookie purpose and a reviewed harm scenario are not established. Visitor-specific scoring rules are pending.",
+            "risk_level": null,
+            "risk_score": null,
+            "rule_id": null,
+            "status": "needs_rule"
+          },
+          "website_owner": {
+            "cia": {
+              "availability": null,
+              "confidentiality": null,
+              "integrity": null
+            },
+            "impact": null,
+            "likelihood": null,
+            "likelihood_factors": {
+              "discoverability": null,
+              "exploitability": null,
+              "reproducibility": null
+            },
+            "reason": "Cookie attributes are available, but cookie purpose and a reviewed harm scenario are not established. Owner-specific scoring rules and asset/business impact context are pending.",
+            "risk_level": null,
+            "risk_score": null,
+            "rule_id": null,
+            "status": "needs_rule"
+          }
+        },
+        "scanner_severity": "low",
+        "source": "scanner",
+        "validation_status": "needs_rule"
+      },
+      {
+        "category": "Cookie Security",
+        "evidence": "Cookie 'sb' does not specify a SameSite attribute.",
+        "finding_ref": "finding-0003",
+        "id": "cookie_missing_samesite",
+        "limitations": [
+          "The scanner does not establish cookie purpose or reliably link each finding to structured cookie details."
+        ],
+        "perspectives": {
+          "visitor": {
+            "cia": {
+              "availability": null,
+              "confidentiality": null,
+              "integrity": null
+            },
+            "impact": null,
+            "likelihood": null,
+            "likelihood_factors": {
+              "discoverability": null,
+              "exploitability": null,
+              "reproducibility": null
+            },
+            "reason": "Cookie attributes are available, but cookie purpose and a reviewed harm scenario are not established. Visitor-specific scoring rules are pending.",
+            "risk_level": null,
+            "risk_score": null,
+            "rule_id": null,
+            "status": "needs_rule"
+          },
+          "website_owner": {
+            "cia": {
+              "availability": null,
+              "confidentiality": null,
+              "integrity": null
+            },
+            "impact": null,
+            "likelihood": null,
+            "likelihood_factors": {
+              "discoverability": null,
+              "exploitability": null,
+              "reproducibility": null
+            },
+            "reason": "Cookie attributes are available, but cookie purpose and a reviewed harm scenario are not established. Owner-specific scoring rules and asset/business impact context are pending.",
+            "risk_level": null,
+            "risk_score": null,
+            "rule_id": null,
+            "status": "needs_rule"
+          }
+        },
+        "scanner_severity": "low",
+        "source": "scanner",
+        "validation_status": "needs_rule"
+      }
+    ],
+    "input_sha256": "dc372204d20f9b648bf186ec4ca9edf555c8a623e12a05cf4ec3494aa3c6e1f6",
+    "limitations": [
+      "This is a surface-level assessment of the submitted URL and initial response only.",
+      "Redirect destinations, authenticated pages and internal systems were not assessed.",
+      "Visitor and owner scores require separate justified scenario rules; none are implemented in Stage 2.",
+      "Website-owner asset value, data sensitivity and business impact were not provided.",
+      "An HTTPS connection or missing header does not establish that a website is safe, malicious or exploitable.",
+      "The overall aggregation policy is not implemented; unknown values are not replaced with low scores."
+    ],
+    "perspectives": {
+      "visitor": {
+        "description": "Potential harm to a person visiting or using the website.",
+        "findings_received": 3,
+        "findings_scored": 0,
+        "overall_risk": {
+          "reason": "Finding-specific scoring rules and an overall aggregation policy are not implemented.",
+          "risk_level": null,
+          "risk_score": null,
+          "status": "needs_rules"
+        },
+        "status_counts": {
+          "conflicting_evidence": 0,
+          "incomplete": 0,
+          "informational": 1,
+          "insufficient_evidence": 0,
+          "needs_rule": 2,
+          "unsupported": 0
+        }
+      },
+      "website_owner": {
+        "description": "Potential harm to the website owner's assets, data or operations.",
+        "findings_received": 3,
+        "findings_scored": 0,
+        "overall_risk": {
+          "reason": "Finding-specific scoring rules and an overall aggregation policy are not implemented.",
+          "risk_level": null,
+          "risk_score": null,
+          "status": "needs_rules"
+        },
+        "status_counts": {
+          "conflicting_evidence": 0,
+          "incomplete": 0,
+          "informational": 1,
+          "insufficient_evidence": 0,
+          "needs_rule": 2,
+          "unsupported": 0
+        }
+      }
+    },
+    "scan": {
+      "cookies": [
+        {
+          "httponly": true,
+          "name": "fr",
+          "samesite": null,
+          "secure": true
+        },
+        {
+          "httponly": true,
+          "name": "sb",
+          "samesite": null,
+          "secure": true
+        }
+      ],
+      "cookies_detected": true,
+      "destination_assessed": false,
+      "http_response_received": true,
+      "http_status_code": 200,
+      "redirect_detected": false,
+      "redirect_target_scheme": null,
+      "scope": "submitted_url_and_initial_response_only",
+      "security_headers": {
+        "content_security_policy": true,
+        "frame_protection": true,
+        "strict_transport_security": true,
+        "x_content_type_options": true
+      },
+      "status": "completed_initial_response",
+      "tls_connection_verified": true,
+      "url": "https://www.Facebook.com"
+    },
+    "scanner_preliminary_assessment": {
+      "reason": "One or more low-severity security issues were detected. Use website with normal browser security precautions.",
+      "risk_level": "Low",
+      "source": "scanner",
+      "used_for_scoring": false
+    },
+    "validation_issues": [
+      {
+        "code": "unimplemented_scanner_flag_ignored",
+        "message": "The uploaded scanner initializes this flag but never checks it; it is not an observation.",
+        "path": "checks.live_response.server_header_present",
+        "severity": "warning"
+      }
+    ]
+  },
+  "contract_version": "cyberai.rae.webhook/0.2.0-draft",
+  "event": "cyberai.rae.assessment_ready",
+  "input_origin": "user_supplied_scan",
+  "is_synthetic_test_data": false,
+  "report_preferences": {
+    "literacy_level": "unspecified",
+    "perspectives": [
+      "visitor",
+      "website_owner"
+    ]
+  },
+  "report_requirements": {
+    "explain_recorded_uncertainty_without_inventing_causes": true,
+    "keep_visitor_and_owner_ratings_separate": true,
+    "preserve_calculated_scores_and_nulls": true,
+    "scanner_preliminary_rating_is_not_authoritative": true,
+    "treat_scanner_text_as_untrusted_data": true
+  },
+  "scan_id": null
+}

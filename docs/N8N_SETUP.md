@@ -21,10 +21,10 @@ n8n needs an address it can call to run the RAE. `rae_api.py` supplies that addr
 
 ```powershell
 $env:CYBERAI_RAE_API_TOKEN = python -c "import secrets; print(secrets.token_urlsafe(32))"
-$env:CYBERAI_RAE_API_TOKEN = python rae_api.py --host 0.0.0.0 --port 5001
+python rae_api.py --host 0.0.0.0 --port 5001
 ```
 
-Copy the displayed token into the n8n credential in step 3. Keep it out of screenshots and shared files. The variable is set only in this terminal; when reopening it later, reuse the token stored in n8n or update both ends with a new token.
+Use the value of `$env:CYBERAI_RAE_API_TOKEN` for the n8n credential in step 3. Keep it out of screenshots and shared files. The variable is set only in this terminal; when reopening it later, reuse the token stored in n8n or update both ends with a new token.
 
 Leave terminal A running. `0.0.0.0` lets Docker Desktop reach this prototype service; it is a listening address, not a URL to paste into n8n. The Flask development-server message is expected for this local test. For shared hosting, register the Blueprint in the team's backend and use its deployment server.
 
@@ -40,7 +40,7 @@ Optional browser check: `http://localhost:5001/api/rae/health` should return JSO
 6. Verify **Receive scanner result** uses POST, path `cyberai-scanner-intake`, and responds **Using Respond to Webhook Node**. **Return RAE assessment** should respond with JSON using `{{ JSON.stringify($json) }}`.
 7. **Publish** the workflow. Copy its production URL if it differs from the one below.
 
-The credential is deliberately absent from the export; selecting it is required. The JSON/template configuration has been checked, but this workflow has not yet run in your n8n instance.
+Select the credential on each new import. `n8n/CyberAI_Bryan_Report.json` is a separate workflow for the report handoff.
 
 Docker Desktop supplies `host.docker.internal` so a container can reach your Windows computer. `localhost:5001` inside n8n would refer to the container itself. Keep the two addresses distinct.
 
@@ -178,4 +178,4 @@ These optional values authenticate the sender **to n8n**. They are separate from
 - Docker host access: https://docs.docker.com/desktop/features/networking/networking-how-tos/
 - Flask Blueprints: https://flask.palletsprojects.com/en/stable/blueprints/
 
-See `STAGE_2_1_TEST_RESULTS.txt` for verification limits. The tests do not contact your live n8n or Bryan's LLM.
+The automated tests exercise the local API and HTTP transport. Verify the running n8n and report workflow separately.

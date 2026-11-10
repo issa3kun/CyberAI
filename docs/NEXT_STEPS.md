@@ -14,14 +14,14 @@ Stage 2 completes an offline scanner-adapter prototype and draft report payload.
 
 ## Ziyad
 
-- Preserve parsed cookie metadata. In `scanner/url_checks.py`, replace `live_checks["cookies"] = []` after `_inspect_live_response` with `live_checks.setdefault("cookies", [])`.
+- Confirm that scanner releases continue to return parsed cookie metadata when a response contains cookies.
 - Distinguish recorded SSL/TLS failures from generic connection errors, without claiming that every SSL error means an invalid certificate.
 - Keep finding IDs and schema changes coordinated with Imran. Consider adding a scanner/schema version and per-check outcomes.
 - Add a structured cookie identifier to cookie findings so the engine can link them to the corresponding attribute record.
 - Reject non-object request JSON with a clear client error rather than an unhandled server error.
 - Confirm future raw header/TLS/DNS evidence and AdaBoost/SHAP output when implemented. Downloaded packages alone do not establish an implemented model.
 
-These are proposed changes for Ziyad. His uploaded backend has not been modified in this package.
+Coordinate these scanner follow-ups with Ziyad.
 
 ## Bryan
 

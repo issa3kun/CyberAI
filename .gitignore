@@ -9,4 +9,5 @@ __pycache__/
 n8n_data/
 *-receipt.json
 ziyad_scan.json
+/rae-exports/
 *.zip
